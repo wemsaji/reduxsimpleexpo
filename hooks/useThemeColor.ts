@@ -4,13 +4,15 @@
  */
 
 import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { RootState } from '@/store';
+import { useSelector } from 'react-redux';
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
   colorName: keyof typeof Colors.light & keyof typeof Colors.dark
 ) {
-  const theme = useColorScheme() ?? 'light';
+  const colorScheme = useSelector((state: RootState) => state.colorScheme.colorScheme);
+  const theme = colorScheme ?? 'light';
   const colorFromProps = props[theme];
 
   if (colorFromProps) {
